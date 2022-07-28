@@ -48,24 +48,38 @@ let checkOperator = (a,b,operator) =>{
 
 /* DOm element edit */
 const calculatorButtons = document.querySelector(".calculatorButtons");
+const topText = document.getElementById('topText');
+const bottomText = document.getElementById('bottomText');
+let topTextContent = "";
+let bottomTextContent = "";
+
+topText.textContent = topTextContent;
+bottomText.textContent = bottomTextContent;
+
+/*  Clear button */
+/* const clearButton = document.getElementById("button3")
+clearButton.addEventListener('click',() => {
+    clear()
+})  */
 
 /*Function that creates grid */
-let createGrid = (n) => {
-    for(let i=1; i<=n*n;i++) {        
+let createGrid = (n,m) => {
+    for(let i=1; i<=n*m;i++) {        
           let grid = document.createElement('div');
           grid.classList.add("button");
           grid.setAttribute('id', `button${i}` );
           calculatorButtons.appendChild(grid);
           calculatorButtons.style.gridTemplateColumns = `repeat(${n},1fr)`
+          calculatorButtons.style.gridTemplateRows = `repeat(${m},1fr)`
       }
     addText();
-/*     createClickEvents(); */
+    addClick();
   }
 
 /* Button text content */
 
 let addText = () =>{
-    let buttonContent = ["7","8","9",'÷','4','5','6','x','1','2','3','+','.','0','=','-']
+    let buttonContent = ['x^','x!','AC','DEL',"7","8","9",'÷','4','5','6','x','1','2','3','+','.','0','=','-']
     const  buttons = document.querySelectorAll('.button')
     let i = 0;
     buttons.forEach(button => {
@@ -74,8 +88,35 @@ let addText = () =>{
     });
 }
 
+let addClick = () =>{
+    const  buttons = document.querySelectorAll('.button')
+    buttons.forEach(button => {
+        button.addEventListener('click',()=>{
+            bottomTextContent = bottomTextContent +button.textContent;
+            updateText();
 
-createGrid(4);
+        })
+    });
+}
+
+
+let updateText = () =>{
+    topTextContent = topTextContent;
+    bottomTextContent = bottomTextContent;
+    topText.textContent = topTextContent;
+    bottomText.textContent = bottomTextContent;
+
+}
+
+
+let clear= () =>{
+    topTextContent = "";
+    bottomTextContent = "";
+    topText.textContent = "";
+    bottomText.textContent = bottomTextContent;
+}
+
+createGrid(4,5);
 
 
 

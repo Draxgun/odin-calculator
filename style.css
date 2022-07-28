@@ -28,7 +28,7 @@ body{
     display: flex;
     flex-direction: column;
     width: 400px;
-    height: 500px;
+    height: 600px;
     border: black solid 2px;
     border-radius: 20px;
     align-items: center;
@@ -43,6 +43,27 @@ body{
     border-radius: 20px;
     margin: 20px;
     background-color: #869191;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#topText{
+    margin-right: 20px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    font-size: 25px;
+}
+
+#bottomText{
+    display: flex;
+    font-size: 35px;
+    margin-right: 20px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    flex-grow: 2;
+    text-align: center;
+    align-items: center;
 }
 
 .calculatorButtons{
@@ -62,4 +83,11 @@ body{
     font-size: 20px;
     justify-content: center;
     align-items: center;
+}
+
+#button4{
+    background-color: rgb(196, 51, 51);
+}
+#button3{
+    background-color: rgb(57, 54, 206);
 }
