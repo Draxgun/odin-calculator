@@ -58,8 +58,24 @@ let createGrid = (n) => {
           calculatorButtons.appendChild(grid);
           calculatorButtons.style.gridTemplateColumns = `repeat(${n},1fr)`
       }
+    addText();
 /*     createClickEvents(); */
   }
 
+/* Button text content */
+
+let addText = () =>{
+    let buttonContent = ["7","8","9",'÷','4','5','6','x','1','2','3','+','.','0','=','-']
+    const  buttons = document.querySelectorAll('.button')
+    let i = 0;
+    buttons.forEach(button => {
+        button.textContent = buttonContent[i];
+        i++;
+    });
+}
+
+
 createGrid(4);
+
+
 
