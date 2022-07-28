@@ -46,4 +46,20 @@ let checkOperator = (a,b,operator) =>{
     }
 }
 
+/* DOm element edit */
+const calculatorButtons = document.querySelector(".calculatorButtons");
+
+/*Function that creates grid */
+let createGrid = (n) => {
+    for(let i=1; i<=n*n;i++) {        
+          let grid = document.createElement('div');
+          grid.classList.add("button");
+          grid.setAttribute('id', `button${i}` );
+          calculatorButtons.appendChild(grid);
+          calculatorButtons.style.gridTemplateColumns = `repeat(${n},1fr)`
+      }
+/*     createClickEvents(); */
+  }
+
+createGrid(4);
 
