@@ -99,6 +99,7 @@ let addClick = () =>{
 
 /* Checks if text updated */
 let updateText = () =>{
+    checkForPoints();
     checkForLenght();
     checkForOperator();
     topText.textContent = topTextContent;
@@ -171,6 +172,14 @@ let checkForLenght = () => {
         alert('You exceeded the amount of digits permitted')    
         bottomTextContent = ''
         topTextContent = "";
+    }
+}
+
+let checkForPoints = () =>{
+    count = bottomTextContent.split('.').length - 1;
+    if(count>1){
+        bottomTextContent=bottomTextContent.slice(0,-1);
+        console.log(bottomTextContent)
     }
 }
 
