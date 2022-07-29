@@ -108,10 +108,10 @@ let updateText = () =>{
 
 /* Clear all content */
 let clear= () =>{
-    topTextContent = "";
-    bottomTextContent = "";
+    topTextContent="";
+    bottomTextContent ="";
     topText.textContent = "";
-    bottomText.textContent = bottomTextContent;
+    bottomText.textContent = "";
 }
 
 let deleteButton = () =>{
@@ -124,7 +124,6 @@ let deleteButton = () =>{
 /* Checks if operators have been clicked */
 let checkForOperator = () =>{
     if(operators.some(operator => bottomTextContent.includes(operator))){
-        console.log('hola')
         topTextContent = bottomTextContent;
         bottomTextContent = "";
     }else if(operators.some(operator => topTextContent.includes(operator))){
@@ -147,14 +146,17 @@ let calculateExpression = () => {
         num1 = parseFloat(num1)
         let num2 = topTextContent.split(operator)[1];
         num2 = parseFloat(num2);
-
-        if (operate(num1,num2,operator)%1===0){
-            bottomTextContent = operate(num1,num2,operator)
+        let result = operate(num1,num2,operator)
+        if (result%1===0){
+            bottomTextContent = result.toString()
+            topTextContent = bottomTextContent;
+            topText.textContent = topTextContent;
             bottomText.textContent = bottomTextContent;
         }else{
-            bottomTextContent = operate(num1,num2,operator).toFixed(2)
+            bottomTextContent = result.toFixed(2).toString()
+            topTextContent = bottomTextContent;
+            topText.textContent = topTextContent;
             bottomText.textContent = bottomTextContent;
-
         }
 
     }else{
@@ -175,11 +177,18 @@ let checkForLenght = () => {
     }
 }
 
+/* Checks for multiple decimal points */
 let checkForPoints = () =>{
     count = bottomTextContent.split('.').length - 1;
     if(count>1){
         bottomTextContent=bottomTextContent.slice(0,-1);
-        console.log(bottomTextContent)
+    }
+}
+
+/* Check for operations*/
+let checkForResutls = () => {
+    if (bottomTextContent){
+
     }
 }
 
