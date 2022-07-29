@@ -58,9 +58,9 @@ let checkOperator = (a,b,operator) =>{
         return add(a,b);
     }else if (operator==='-'){
         return substract(a,b);
-    }else if (operator==='x'){
+    }else if (operator==='x' || operator==='*'){
         return multiply(a,b);
-    }else if (operator==='÷'){
+    }else if (operator==='÷'|| operator==='/'){
         return divide(a,b);
     }else if (operator==='^'){
         return power(a,b);
@@ -120,6 +120,7 @@ let addClick = () =>{
                 updateText()});
         }});
 }
+
 
 
 /* Checks if text updated */
@@ -219,15 +220,39 @@ let checkForPoints = () =>{
     }
 }
 
-/* Check for operations*/
-let checkForResutls = () => {
-    if (bottomTextContent){
 
-    }
-}
 
 /* Creates all the buttons */
 createGrid(4,5);
+
+/* Keyboard compatibility */
+document.onkeydown = function (e) {
+    let validInputs = ['^','!','AC','DEL',"7","8","9",'÷','4','5','6','x','1','2','3','+','.','0','=','-','Enter',"Backspace",'Delete','*',"/"];
+    e = e || window.event;
+    console.log(e.key)
+    if (validInputs.includes(e.key)){
+        if (e.key === 'Enter'){
+            calculateExpression()
+        }else if (e.key === 'Backspace'){
+            deleteButton();
+        }else if (e.key === 'Delete'){
+            clear();
+        }else if (e.key === '*'){
+            bottomTextContent = bottomTextContent + "x";
+            bottomText.textContent = bottomTextContent
+            updateText();
+        }else if (e.key === '/'){
+            bottomTextContent = bottomTextContent.toString() + "÷";
+            updateText();
+        }
+        else{
+            bottomTextContent = bottomTextContent + e.key;
+            updateText();
+        }
+
+    } 
+
+};
 
 /*  Clear button */
 const clearButton = document.getElementById("button3")
