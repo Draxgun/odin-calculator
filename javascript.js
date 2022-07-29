@@ -26,7 +26,7 @@ console.log(multiply(a,b))
 console.log(divide(a,b)) */
 
 /* Operate */
-let operators = ['+','-','*','/']
+let operators = ['+','-','*','/','x','÷']
 
 /* Function that operates */
 let operate = (a,b,operator) =>{
@@ -56,11 +56,6 @@ let bottomTextContent = "";
 topText.textContent = topTextContent;
 bottomText.textContent = bottomTextContent;
 
-/*  Clear button */
-/* const clearButton = document.getElementById("button3")
-clearButton.addEventListener('click',() => {
-    clear()
-})  */
 
 /*Function that creates grid */
 let createGrid = (n,m) => {
@@ -88,27 +83,29 @@ let addText = () =>{
     });
 }
 
+/* Adds event listener */
 let addClick = () =>{
     const  buttons = document.querySelectorAll('.button')
     buttons.forEach(button => {
-        button.addEventListener('click',()=>{
-            bottomTextContent = bottomTextContent +button.textContent;
-            updateText();
+        if(button.getAttribute('id')==='button3' || button.getAttribute('id')==='button4' ){
 
-        })
-    });
+        }else{
+            button.addEventListener('click',()=>{
+                bottomTextContent = bottomTextContent +button.textContent;
+                updateText()});
+        }});
 }
 
 
+/* Checks if text updated */
 let updateText = () =>{
-    topTextContent = topTextContent;
-    bottomTextContent = bottomTextContent;
+    checkForOperator();
     topText.textContent = topTextContent;
     bottomText.textContent = bottomTextContent;
 
 }
 
-
+/* Clear all content */
 let clear= () =>{
     topTextContent = "";
     bottomTextContent = "";
@@ -116,7 +113,35 @@ let clear= () =>{
     bottomText.textContent = bottomTextContent;
 }
 
+let deleteButton = () =>{
+    bottomTextContent = bottomTextContent.slice(0, -1);
+    updateText();
+}
+
+/* Checks if operators have been clicked */
+let checkForOperator = () =>{
+    if(operators.some(operator => bottomTextContent.includes(operator))){
+        console.log('hola')
+        topTextContent = bottomTextContent;
+        bottomTextContent = "";
+    } else{
+        topTextContent = topTextContent;
+        bottomTextContent = bottomTextContent;
+    }
+
+}
+
+/* Creates all the buttons */
 createGrid(4,5);
 
+/*  Clear button */
+const clearButton = document.getElementById("button3")
+clearButton.addEventListener('click',() => {
+    clear();
+})  
 
-
+/*  delete button */
+const delButton = document.getElementById("button4")
+delButton.addEventListener('click',() => {
+    deleteButton();
+})  
