@@ -26,7 +26,7 @@ console.log(multiply(a,b))
 console.log(divide(a,b)) */
 
 /* Operate */
-let operators = ['+','-','*','/','x','÷']
+let operators = ['+','-','*','/','x','÷','!','^']
 
 /* Function that operates */
 let operate = (a,b,operator) =>{
@@ -39,9 +39,9 @@ let checkOperator = (a,b,operator) =>{
         return add(a,b);
     }else if (operator==='-'){
         return substract(a,b);
-    }else if (operator==='*'){
+    }else if (operator==='x'){
         return multiply(a,b);
-    }else if (operator==='/'){
+    }else if (operator==='÷'){
         return divide(a,b);
     }
 }
@@ -74,7 +74,7 @@ let createGrid = (n,m) => {
 /* Button text content */
 
 let addText = () =>{
-    let buttonContent = ['x^','x!','AC','DEL',"7","8","9",'÷','4','5','6','x','1','2','3','+','.','0','=','-']
+    let buttonContent = ['^','!','AC','DEL',"7","8","9",'÷','4','5','6','x','1','2','3','+','.','0','=','-']
     const  buttons = document.querySelectorAll('.button')
     let i = 0;
     buttons.forEach(button => {
@@ -87,7 +87,7 @@ let addText = () =>{
 let addClick = () =>{
     const  buttons = document.querySelectorAll('.button')
     buttons.forEach(button => {
-        if(button.getAttribute('id')==='button3' || button.getAttribute('id')==='button4' ){
+        if(button.getAttribute('id')==='button3' || button.getAttribute('id')==='button4'||button.getAttribute('id')==='button19' ){
 
         }else{
             button.addEventListener('click',()=>{
@@ -99,10 +99,10 @@ let addClick = () =>{
 
 /* Checks if text updated */
 let updateText = () =>{
+    checkForLenght();
     checkForOperator();
     topText.textContent = topTextContent;
     bottomText.textContent = bottomTextContent;
-
 }
 
 /* Clear all content */
@@ -114,8 +114,10 @@ let clear= () =>{
 }
 
 let deleteButton = () =>{
+    bottomTextContent = bottomTextContent.toString();
     bottomTextContent = bottomTextContent.slice(0, -1);
-    updateText();
+    topText.textContent = topTextContent;
+    bottomText.textContent = bottomTextContent;
 }
 
 /* Checks if operators have been clicked */
@@ -124,11 +126,52 @@ let checkForOperator = () =>{
         console.log('hola')
         topTextContent = bottomTextContent;
         bottomTextContent = "";
-    } else{
+    }else if(operators.some(operator => topTextContent.includes(operator))){
+        topTextContent = topTextContent + bottomTextContent.slice(-1) ;
+        bottomTextContent = bottomTextContent;
+    }else{
         topTextContent = topTextContent;
         bottomTextContent = bottomTextContent;
     }
 
+}
+
+/* Calculate Expression */
+let calculateExpression = () => {
+    if(topTextContent!=''){
+
+        /* Returns the operator that is used */
+        const operator = operators.filter(operator => topTextContent.includes(operator)).join();
+        let num1 = topTextContent.split(operator)[0];
+        num1 = parseFloat(num1)
+        let num2 = topTextContent.split(operator)[1];
+        num2 = parseFloat(num2);
+
+        if (operate(num1,num2,operator)%1===0){
+            bottomTextContent = operate(num1,num2,operator)
+            bottomText.textContent = bottomTextContent;
+        }else{
+            bottomTextContent = operate(num1,num2,operator).toFixed(2)
+            bottomText.textContent = bottomTextContent;
+
+        }
+
+    }else{
+        topTextContent=bottomTextContent;
+        bottomTextContent =bottomTextContent;
+        topText.textContent = topTextContent;
+        bottomText.textContent = bottomTextContent;
+    }
+
+}
+
+ /* Checks the result */
+let checkForLenght = () => {
+    if (bottomTextContent.length> 9 || topTextContent.length>12 ){
+        alert('You exceeded the amount of digits permitted')    
+        bottomTextContent = ''
+        topTextContent = "";
+    }
 }
 
 /* Creates all the buttons */
@@ -145,3 +188,9 @@ const delButton = document.getElementById("button4")
 delButton.addEventListener('click',() => {
     deleteButton();
 })  
+
+/* calculate button */
+const calculateButton = document.getElementById('button19')
+calculateButton.addEventListener('click', () =>{
+    calculateExpression();
+});
