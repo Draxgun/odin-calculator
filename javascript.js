@@ -26,7 +26,6 @@ const factorial = function(a) {
 	let result = a;
   if(a!=0){
     for(let i=1;i<=a-1;i++){
-      console.log(i);
       result = result*i;
     }
     return result;
@@ -173,7 +172,7 @@ let calculateExpression = () => {
         let num2 = topTextContent.split(operator)[1];
         num2 = parseFloat(num2);
         let result = operate(num1,num2,operator)
-        if (result.length<10){
+        if (result.toString().length<16){
             if (result%1===0){
                 bottomTextContent = result.toString()
                 topTextContent = bottomTextContent;
@@ -186,7 +185,7 @@ let calculateExpression = () => {
                 bottomText.textContent = bottomTextContent;
             }
         }else{
-            alert("This operation cannot be done")
+            alert("This operation is to large to be done")
             bottomTextContent = ""
             topTextContent = ""
             topText.textContent = topTextContent;
